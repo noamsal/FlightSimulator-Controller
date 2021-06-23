@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewmodel"
+            type="viewModel.MyViewModel"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical"
+        android:paddingTop="40sp"
+        tools:context=".views.MainActivity">
+
+        <TextView
+            android:id="@+id/result_text"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed-light"
+            android:paddingTop="5sp"
+            android:text="Hello World!"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/roll_button"
+            android:layout_width="298dp"
+            android:layout_height="194dp"
+            android:layout_gravity="center|center_horizontal"
+            android:text="@string/roll_label" />
+
+
+
+        <EditText
+            android:id="@+id/IP_number"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="center|center_horizontal"
+            android:background="@android:color/holo_green_dark"
+            android:ems="10"
+            android:hint="@string/IP_number"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/Port_number"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/holo_green_dark"
+            android:ems="10"
+            android:hint="@string/Port_number"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/Connect_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@color/teal_700"
+            android:text="@string/Submit_Button"
+            app:backgroundTint="@android:color/holo_blue_dark"
+            android:onClick="@{() -> viewmodel.onConnect()}"/>
+
+    </LinearLayout>
+
+</layout>
