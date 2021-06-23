@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FlightControl</string>
+    <string name="app_name">FlightController</string>
     <string name="roll_label">Roll</string>
     <string name="IP_number">IP</string>
     <string name="Port_number">Port</string>
