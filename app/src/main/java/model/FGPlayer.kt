@@ -3,6 +3,8 @@ package model
 import java.io.IOException
 import java.net.Socket
 import java.net.SocketException
+import java.util.concurrent.BlockingQueue
+import java.util.concurrent.LinkedBlockingQueue
 
 class FGPlayer {
 
@@ -12,54 +14,51 @@ class FGPlayer {
     var connected: Boolean = false
     private lateinit var client: Socket
 
+    var dispatchQueue : BlockingQueue<Runnable> = LinkedBlockingQueue<Runnable>()
 
-    /*
-    NO need for constructor
-    constructor(portNumber: String , IPAddress: String){
-        val port = portNumber.toInt()
-        val IPaddress = IPAddress
 
-        // establish connection
-        try{
-            client = Socket(IPaddress, port)
-            println("Connection established")
-
-        }
-        catch(e: IOException)
-        {
-            println(e);
-        }
-    }*/
+    constructor(){
+        // implement active object
+        Thread(Runnable()  {
+            run() {
+                while (true){
+                    try{
+                        dispatchQueue.take().run();
+                    }
+                    catch (e : InterruptedException) {}
+                }
+            }
+        }).start();
+    }
 
     /**
      * Establishes connection in TCP with given port and ip
      * Returns True is connection was established, false otherwise
      */
-    fun establishConnection(portNumber: String , IPAddress: String): Boolean{
-        println("in establish")
+    fun establishConnection(portNumber: String , IPAddress: String){
+        println("In the connection going to queue")
+        dispatchQueue.put(Runnable(){
+            run(){
+                try {
+                    client = Socket(IPAddress, portNumber.toInt())
+                }
+                catch(e: Exception){
+                    println(e)
 
-        try{
-            client = Socket(IPAddress, portNumber.toInt())
-            println("Connection established")
-            connected = true
-        }
-        catch(e: SocketException)
-        {
-            println(e)
-            return false
-        }
-        return true
+                }
+            }
+        } );
     }
 
     /**
      * Send the new value to fg
      */
-    fun setAileron(newValue: Double): Boolean{
+    fun setAileron(newValue: Double){
         var message = "set /controls/flight/aileron "
         message += newValue.toString()
         message += "\r\n"
 
-        return sendData(message)
+        sendData(message)
 
         //set /controls/flight/aileron (-1…1)
     }
@@ -67,12 +66,12 @@ class FGPlayer {
     /**
      * Send the new value to fg
      */
-    fun setElevator(newValue: Double): Boolean{
+    fun setElevator(newValue: Double){
         var message = "set /controls/flight/elevator "
         message += newValue.toString()
         message += "\r\n"
 
-        return sendData(message)
+        sendData(message)
 
         //set /controls/flight/elevator (-1…1)
     }
@@ -80,12 +79,12 @@ class FGPlayer {
     /**
      * Send the new value to fg
      */
-    fun setRudder(newValue: Double): Boolean{
+    fun setRudder(newValue: Double){
         var message = "set /controls/flight/rudder "
         message += newValue.toString()
         message += "\r\n"
 
-        return sendData(message)
+        sendData(message)
 
         //set /controls/flight/rudder (-1…1)
     }
@@ -93,12 +92,12 @@ class FGPlayer {
     /**
      * Send the new value to fg
      */
-    fun setThrottle(newValue: Double): Boolean{
+    fun setThrottle(newValue: Double){
         var message = "set /controls/flight/current-engine/throttle "
         message += newValue.toString()
         message += "\r\n"
 
-       return sendData(message)
+       sendData(message)
 
         //set /controls/flight/current-engine/throttle (0…1)
     }
@@ -106,17 +105,21 @@ class FGPlayer {
     /**
      * Sends the data over socket and returns true if it went through
      */
-    private fun sendData(data: String): Boolean{
-        try {
-            println("going to send: " + data)
-            client.getOutputStream().write(data.toByteArray())
-            client.getOutputStream().flush()
-        }
-        catch(e: IOException){
-            println(e)
-            return false
-        }
-        return true
+    @Throws(InterruptedException::class)
+    private fun sendData(data: String){
+        dispatchQueue.put(Runnable(){
+            run(){
+                try {
+                    println("going to send: $data")
+                    client.getOutputStream().write(data.toByteArray())
+                    client.getOutputStream().flush()
+                }
+                catch(e: IOException){
+                    println(e)
+
+                }
+            }
+        } );
     }
 
 }

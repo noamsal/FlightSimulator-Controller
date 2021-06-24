@@ -96,12 +96,6 @@
 
 
 
-
-
-
-
-
-
         <!-- HORIZONTAL seek-bar: rudder  -->
         <SeekBar
             android:id="@+id/rudder"
