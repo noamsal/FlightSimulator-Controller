@@ -26,7 +26,7 @@ class FGPlayer {
         }
     }
 
-    fun setAileron(newValue: Int){
+    fun setAileron(newValue: Double){
         var message = "set /controls/flight/aileron "
         message += newValue.toString()
         message += "\r\n"
@@ -36,7 +36,7 @@ class FGPlayer {
         //set /controls/flight/aileron (-1…1)
     }
 
-    fun setElevator(newValue: Int){
+    fun setElevator(newValue: Double){
         var message = "set /controls/flight/elevator "
         message += newValue.toString()
         message += "\r\n"
@@ -46,7 +46,7 @@ class FGPlayer {
         //set /controls/flight/elevator (-1…1)
     }
 
-    fun setRudder(newValue: Int){
+    fun setRudder(newValue: Double){
         var message = "set /controls/flight/rudder "
         message += newValue.toString()
         message += "\r\n"
@@ -56,7 +56,7 @@ class FGPlayer {
         //set /controls/flight/rudder (-1…1)
     }
 
-    fun setThrottle(newValue: Int){
+    fun setThrottle(newValue: Double){
         var message = "set /controls/flight/current-engine/throttle "
         message += newValue.toString()
         message += "\r\n"
