@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.flightsimulatorapp.R
 import viewModel.MyViewModel
 
@@ -32,16 +29,39 @@ class MainActivity : AppCompatActivity() {
 
         /*register 'Submit' func. as a Handler for our connection button*/
         findViewById<Button>(R.id.Connect_Button).setOnClickListener { submit(it) } // 'it' refers to the submit button
-    }
-    // my addition
-    //this function shall operate on a click - because SetOnClicked decided in 'onCreate'
-//    private fun rollDice() {
-//        //Toast.makeText(this, "button clicked", Toast.LENGTH_SHORT).show()
-//        val resultText: TextView = findViewById(R.id.result_text) // get reference to 'TextView' GUI
-//        resultText.text = "Dice Rolled" //change the 'TextView' 's text field to a different string
-//    }
 
-    //this function shall operate on a click on 'connection' button - because SetOnClicked decided in 'onCreate'
+        // bind throttle seekbar
+        val throttleBar : SeekBar = findViewById(R.id.throttle)
+        throttleBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                viewmodel.onThrottlechange(p1)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                return
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                return
+            }
+        })
+
+        //bind rudder seekbar
+        val rudderBar : SeekBar = findViewById(R.id.rudder)
+        rudderBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                viewmodel.onRudderchange(p1)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                return
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                return
+            }
+        })
+    }
 
     /**
      * Click handler for the connect button
@@ -67,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         viewmodel.onConnect(port, ip)
         // TODO check if the data is not empty
     }
+
 
 
 }

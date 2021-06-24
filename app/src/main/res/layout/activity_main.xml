@@ -50,7 +50,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:background="@color/teal_700"
-            android:onClick="@{() -> viewmodel.onConnect()}"
+            android:onClick="submit"
             android:text="@string/Submit_Button"
             app:backgroundTint="@android:color/holo_blue_dark" />
 
@@ -93,12 +93,6 @@
 
 
         </LinearLayout>
-
-
-
-
-
-
 
 
 
