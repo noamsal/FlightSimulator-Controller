@@ -9,12 +9,13 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.flightsimulatorapp.R
+//import com.example.flightsimulatorapp.databinding.ActivityMainBinding
 import viewModel.MyViewModel
 
 class MainActivity : AppCompatActivity() {
     /* fields */
     private val viewmodel: MyViewModel = MyViewModel()
-
+    //private lateinit var binding: ActivityMainBinding
 
 
     /* methods */

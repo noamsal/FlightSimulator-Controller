@@ -50,7 +50,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:background="@color/teal_700"
-            android:onClick="@{() -> viewmodel.onConnect()}"
+            android:onClick="submit"
             android:text="@string/Submit_Button"
             app:backgroundTint="@android:color/holo_blue_dark" />
 
@@ -72,9 +72,9 @@
                 <SeekBar
                     android:id="@+id/throttle"
                     android:layout_width="571dp"
-                    android:layout_height="54dp"
+                    android:layout_height="106dp"
                     android:layout_gravity="start"
-                    android:progress="50"
+                    android:max="1"
                     android:progressDrawable="@drawable/custom_progress"
                     android:secondaryProgress="40"
 
