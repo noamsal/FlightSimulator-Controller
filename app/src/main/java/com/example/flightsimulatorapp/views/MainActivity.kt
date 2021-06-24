@@ -9,10 +9,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.flightsimulatorapp.R
+import viewModel.MyViewModel
 
 class MainActivity : AppCompatActivity() {
     /* fields */
-    //lateinit var port : ?Int
+    private val viewmodel: MyViewModel = MyViewModel()
 
 
 
@@ -41,12 +42,30 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     //this function shall operate on a click on 'connection' button - because SetOnClicked decided in 'onCreate'
-    private fun submit(Connect_Button : View) {   // the param. is the connection button itself
 
+    /**
+     * Click handler for the connect button
+     */
+    private fun submit(Connect_Button : View) {   // the param. is the connection button itself
 
         // Hide the keyboard (after submission)
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(Connect_Button.windowToken, 0)
+
+
+        println("In the submit Method")
+
+        // get the entered data
+
+        val port = findViewById<EditText>(R.id.Port_number).text.toString()
+
+        val ip: String = findViewById<EditText>(R.id.IP_number).text.toString()
+
+        println("The port is: $port")
+        println("The IP is: $ip")
+
+        viewmodel.onConnect(port, ip)
+        // TODO check if the data is not empty
     }
 
 
