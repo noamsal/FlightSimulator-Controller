@@ -54,60 +54,54 @@
             android:text="@string/Submit_Button"
             app:backgroundTint="@android:color/holo_blue_dark" />
 
-        <!-- layout for holding two frames - one for the verticall seek-bar, and one for joystick       -->
+        <!-- layout for vertical seekbar + joystick  -->
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="603dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <!-- layout for vertical seekbar + joystick  -->
 
-            <FrameLayout
-                android:id="@+id/VolumeLayout"
-                android:layout_width="573dp"
-                android:layout_height="576dp"
-                android:orientation="horizontal"
-                android:rotation="270">
+            <!-- VERTICAL seek-bar: throttle  -->
+            <SeekBar
+                android:id="@+id/throttle"
+                android:layout_width="147dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="268dp"
+                android:max="100"
+                android:progress="0"
+                android:rotation="-90"
+                android:scaleX="2"
+                android:scaleY="2"
 
-                <SeekBar
-                    android:id="@+id/throttle"
-                    android:layout_width="571dp"
-                    android:layout_height="106dp"
-                    android:layout_gravity="start"
-                    android:max="1"
-                    android:progressDrawable="@drawable/custom_progress"
-                    android:secondaryProgress="40"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.545" />
+<!--                android:progressDrawable="@drawable/custom_progress"-->
 
-                    />
-
-
-            </FrameLayout>
-
-
-        <!-- layout for joystick  -->
-            <FrameLayout
-                android:layout_width="244dp"
-                android:layout_height="508dp">
-
-            </FrameLayout>
 
 
         </LinearLayout>
 
 
-
         <!-- HORIZONTAL seek-bar: rudder  -->
         <SeekBar
             android:id="@+id/rudder"
-            android:layout_width="731dp"
-            android:layout_height="54dp"
+            android:layout_width="165dp"
+            android:layout_height="55dp"
             android:layout_gravity="center|center_horizontal"
             android:layout_marginTop="10dp"
 
-            android:max="1"
-            android:progress="40"
-            android:progressDrawable="@drawable/custom_progress" />
+            android:max="100"
+            android:progress="0"
+            android:scaleX="2"
+            android:scaleY="2"
 
+
+            />
+<!--        android:progressDrawable="@drawable/custom_progress"-->
 
 
 
