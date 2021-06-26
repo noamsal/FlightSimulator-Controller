@@ -7,18 +7,41 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.example.flightsimulatorapp.R
 //import com.example.flightsimulatorapp.databinding.ActivityMainBinding
-import viewModel.MyViewModel
+import com.example.flightsimulatorapp.viewModel.MyViewModel
 
 class MainActivity : AppCompatActivity() {
     /* fields */
     private val viewmodel: MyViewModel = MyViewModel()
-    //private lateinit var binding: ActivityMainBinding
+    private lateinit var joystick: Joystick
 
 
     /* methods */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var v = findViewById<View>(R.id.rootView)
+        v.post { // setup vertical seek bar
+            val w = v.width
+            val h = v.height
+
+            v.rotation = 270.0f
+            v.translationX = ((w - h) / 2).toFloat()
+            v.translationY = ((h - w) / 2).toFloat()
+
+            val lp = v.layoutParams as RelativeLayout.LayoutParams
+            lp.height = w
+            lp.width = h
+            v.requestLayout()
+        }
+
+
+        joystick = findViewById(R.id.joystick)
+        joystick.sender = {a: Float, e: Float -> // dependency Injection
+            viewmodel.onAileronchange(a.toInt(), joystick.width)
+            viewmodel.onElevatorchange(e.toInt(), joystick.height)
+        }
+
 
         //val rollButton: Button = findViewById(R.id.roll_button)
 

@@ -1,10 +1,8 @@
-package viewModel
+package com.example.flightsimulatorapp.viewModel
 
 
 import model.FGPlayer
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MyViewModel : ViewModel() {
@@ -53,12 +51,12 @@ class MyViewModel : ViewModel() {
         val new_value = ((progress.toDouble() - 50) / 100) * 2
         rudder = new_value
     }
-    fun onElevatorchange(progress: Int) {
-        val new_value = ((progress.toDouble() - 50) / 100) * 2
+    fun onElevatorchange(progress: Int, joystickGridHeight: Int) {
+        val new_value = -(progress.toDouble() - joystickGridHeight.toDouble() / 2) / (joystickGridHeight.toDouble() / 2)
         elevator = new_value
     }
-    fun onAileronchange(progress: Int) {
-        val new_value = ((progress.toDouble() - 50) / 100) * 2
+    fun onAileronchange(progress: Int, joystickGridWidth: Int) {
+        val new_value = (progress.toDouble() - joystickGridWidth.toDouble() / 2) / (joystickGridWidth.toDouble() / 2)
         aileron = new_value
     }
 }

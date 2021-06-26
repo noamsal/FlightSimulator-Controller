@@ -11,9 +11,8 @@ class FGPlayer {
     // properties
     //val IPaddress: String
     //val port: Int
-    var isconnected: Boolean = false
     private lateinit var client: Socket
-
+    private var isConnected : Boolean = false
     var dispatchQueue : BlockingQueue<Runnable> = LinkedBlockingQueue<Runnable>()
 
 
@@ -41,7 +40,7 @@ class FGPlayer {
             run(){
                 try {
                     client = Socket(IPAddress, portNumber.toInt())
-                    isconnected = client.isConnected
+                    isConnected=client.isConnected  // now - connected!
                 }
                 catch(e: Exception){
                     println(e)
@@ -98,9 +97,9 @@ class FGPlayer {
         message += newValue.toString()
         message += "\r\n"
 
-       sendData(message)
+        sendData(message)
 
-        //set /controls/flight/current-engine/throttle (0…1)
+        //"set /controls/engines/current-engine/throttle "
     }
 
     /**
@@ -111,7 +110,7 @@ class FGPlayer {
         dispatchQueue.put(Runnable(){
             run(){
                 try {
-                    if(isconnected){
+                    if(isConnected) {   // ONLY SEND DATA IF CONNECTED!
                         println("going to send: $data")
                         client.getOutputStream().write(data.toByteArray())
                         client.getOutputStream().flush()
